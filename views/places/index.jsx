@@ -19,8 +19,10 @@ function index (data) {
     return (
         <Def>
             <main>
-                <h1>PLACES INDEX PAGE</h1>
-                {placesFormatted}
+                <h1>Places to Rant or Rave About</h1>
+                <div className='row'>
+                  {placesFormatted}
+                </div>
             </main>
         </Def>
     )
