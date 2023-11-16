@@ -7,7 +7,8 @@ function index (data) {
         <div className='col-sm-6'>
           <h2>
             <a href="{'/places/${index}'}"></a>
-            {place.name}</h2>
+            {place.name}
+          </h2>
           <p className='text-check'>
             {place.cuisines}
           </p>
