@@ -1,10 +1,11 @@
 const router = require("express").Router();
 // const { useTransition } = require("react");
 const db = require('../models');
+const places = require("../models/places");
 
 ///Get places
 router.get('/', (req, res) => {
-  db.Place,find()
+  db.Place.find()
   .then((places) => {
     res.render('places/index', {places})
   })
@@ -21,8 +22,18 @@ router.post('/', (req, res) => {
     req.redirect('/places')
   })
   .catch(err => {
-    console.log('err', err)
-    res.render('error404')
+    if (err && err.name == 'ValidationError') {
+      let message = 'Validation Error: '
+      for (var field in err.errors){ 
+        message += `${field} was ${err.errors[field].value} .`
+        message += `${err.errors[field].message}`
+      }
+      console.log('Validation error message', message)
+      res.render('places/new', {message})
+    }
+    else {
+      res.render('error404')
+    }
   })
 });
 
@@ -35,7 +46,9 @@ router.get('/new', (req, res) => {
 //show
 router.get('/:id', (req, res) => {
   db.Place.findById(req.params.id)
-  .then(place => {
+  .populate('comments')
+  .then(places => {
+    // console.log(places.comments)
     res.render('places/show', {places} )
   })
   .catch(err => {

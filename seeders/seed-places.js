@@ -1,6 +1,7 @@
-const db = require('./models')
+require('dotenv').config()
+const db = require('../models')
 
-db.PLace.create([{
+db.Place.create ([{
     name: 'H-Thai-ML',
     city: 'Seattle',
     state: 'WA',
